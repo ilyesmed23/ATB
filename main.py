@@ -4028,9 +4028,29 @@ def main(page: ft.Page):
                         ),
                         ft.Container(
                             padding=20,
-                            expand=True,  # 👈 IMPORTANT
+                            expand=True,
                             content=ft.Column(
                                 controls_list,
-                                scroll=ft.ScrollMode.AUTO,  # colonne défilable
-                                expand=True,                # prend toute la hauteur dispo
-                   
+                                scroll=ft.ScrollMode.AUTO,
+                                expand=True,
+                            ),
+                        ),
+                    ],
+                )
+            )
+
+        page.update()
+
+    def view_pop(view):
+        page.views.pop()
+        top_view = page.views[-1]
+        page.go(top_view.route)
+
+    page.on_route_change = route_change
+    page.on_view_pop = view_pop
+    page.go("/")
+
+ft.app(target=main, assets_dir="assets")
+
+
+
